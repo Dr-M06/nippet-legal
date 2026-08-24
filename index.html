@@ -1,196 +1,354 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Nippet Legal - Privacy and Terms</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nippet — Type once. Paste anywhere.</title>
+  <meta name="description" content="Nippet is a keyboard with your snippets on top. Save once, paste anywhere. On-device. Free to start.">
   <style>
     :root {
-      --bg: #0f1115;
-      --card: #171a21;
-      --text: #f3f4f6;
-      --muted: #c2c6d0;
-      --accent: #f5b94f;
-      --line: #2a2f3b;
+      --canvas: #121212;
+      --ink: #ffffff;
+      --muted: rgba(255,255,255,0.5);
+      --faint: rgba(255,255,255,0.38);
+      --accent: #FFCC8F;
+      --on-accent: #1A1A1A;
+      --line: #2A2A2A;
+      --col: 560px;
     }
     * { box-sizing: border-box; }
     html, body { margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      background: var(--canvas);
+      color: var(--ink);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
     }
-    .wrap {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 24px 18px 64px;
-    }
-    .card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 18px;
-      margin-bottom: 18px;
-    }
-    h1, h2, h3 { margin: 0 0 10px; line-height: 1.3; }
-    h1 { font-size: 1.7rem; }
-    h2 { font-size: 1.25rem; margin-top: 6px; }
-    p, li { color: var(--muted); }
     a { color: var(--accent); text-decoration: none; }
     a:hover { text-decoration: underline; }
-    .toc {
+    .page {
+      max-width: var(--col);
+      margin: 0 auto;
+      min-height: 100vh;
+    }
+    header {
       display: flex;
-      flex-wrap: wrap;
-      gap: 10px 14px;
-      margin-top: 10px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--line);
     }
-    .toc a {
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 6px 10px;
+    .brand {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .brand::after {
+      content: "";
       display: inline-block;
-      background: #1b1f28;
+      width: 6px;
+      height: 6px;
+      margin-left: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      vertical-align: 2px;
     }
-    .small { font-size: 0.92rem; }
-    code {
-      background: #1d2230;
-      border: 1px solid #30374a;
-      border-radius: 6px;
-      padding: 1px 6px;
-      color: #fff;
+    nav { display: flex; gap: 16px; }
+    nav a {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
     }
-    .toplink { margin-top: 12px; display: inline-block; }
+    nav a:hover { color: var(--accent); text-decoration: none; }
+    .hero {
+      padding: 72px 20px 56px;
+      text-align: center;
+      border-bottom: 1px solid var(--line);
+    }
+    .kicker {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--faint);
+      margin-bottom: 28px;
+    }
+    h1 {
+      font-size: 34px;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin: 0 0 14px;
+    }
+    .lede {
+      font-size: 16px;
+      color: var(--muted);
+      margin: 0 auto 32px;
+      max-width: 26em;
+    }
+    .cta {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--on-accent);
+      font-size: 15px;
+      font-weight: 600;
+      padding: 13px 28px;
+      border-radius: 10px;
+      text-decoration: none;
+    }
+    .cta:hover { text-decoration: none; opacity: 0.92; }
+    .hint {
+      margin-top: 14px;
+      font-size: 12px;
+      color: var(--faint);
+    }
+    section { padding: 36px 20px; border-bottom: 1px solid var(--line); }
+    .label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--faint);
+      margin: 0 0 16px;
+    }
+    h2 {
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--accent);
+      margin: 0 0 8px;
+    }
+    .sub {
+      font-size: 14px;
+      color: var(--muted);
+      margin: 0 0 24px;
+    }
+    .row {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 14px 0;
+      border-top: 1px solid var(--line);
+    }
+    .row:last-child { border-bottom: 1px solid var(--line); }
+    .row h3 {
+      font-size: 15px;
+      font-weight: 600;
+      margin: 0 0 3px;
+    }
+    .row p { margin: 0; font-size: 13px; color: var(--muted); }
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+    .split > div { padding: 8px 0 4px; }
+    .split > div + div { padding-left: 20px; border-left: 1px solid var(--line); }
+    .price {
+      font-size: 22px;
+      font-weight: 600;
+      margin: 4px 0 6px;
+    }
+    .legal h3 {
+      font-size: 15px;
+      font-weight: 600;
+      margin: 22px 0 8px;
+    }
+    .legal p, .legal li { font-size: 14px; color: var(--muted); }
+    .legal ul { padding-left: 1.15em; margin: 0 0 8px; }
+    footer {
+      padding: 28px 20px 48px;
+      font-size: 12px;
+      color: var(--faint);
+    }
+    footer .meta { margin-top: 8px; }
+    @media (max-width: 560px) {
+      h1 { font-size: 28px; }
+      .split { grid-template-columns: 1fr; }
+      .split > div + div { padding-left: 0; border-left: 0; border-top: 1px solid var(--line); margin-top: 8px; padding-top: 16px; }
+      nav { gap: 12px; }
+    }
   </style>
 </head>
 <body>
-  <div class="wrap" id="top">
-    <section class="card">
-      <h1>Nippet Legal</h1>
-      <p class="small">
-        This page includes Nippet's Privacy Policy and Terms of Use in one place.
-        Last updated: <strong>March 11, 2026</strong>.
-      </p>
-      <nav class="toc" aria-label="Table of contents">
-        <a href="#privacy-policy">Privacy Policy</a>
-        <a href="#terms-of-use">Terms of Use</a>
-        <a href="#subscriptions">Subscriptions & Billing</a>
-        <a href="#contact">Contact</a>
+  <div class="page">
+    <header>
+      <a class="brand" href="#">Nippet</a>
+      <nav>
+        <a href="#pro">Pro</a>
+        <a href="#privacy">Privacy</a>
+        <a href="#terms">Terms</a>
       </nav>
+    </header>
+
+    <div class="hero">
+      <p class="kicker">Welcome to Nippet</p>
+      <h1>Type once.<br>Paste anywhere.</h1>
+      <p class="lede">A keyboard with your snippets on top. Letters, space, and paste — no switching away to type.</p>
+      <a class="cta" href="https://apps.apple.com/app/nippet/id6760609756">Get Nippet</a>
+      <p class="hint">Free to start · 5 clips · 5 keyboard pastes</p>
+    </div>
+
+    <section>
+      <p class="label">KEYBOARD</p>
+      <h2>Stay on it</h2>
+      <p class="sub">Nippet replaces the system keyboard with typing plus your snippets. Look for the name next to + until you save one.</p>
+      <div class="row">
+        <div>
+          <h3>Tap +</h3>
+          <p>Saves whatever you just copied as a snippet.</p>
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <h3>Type here</h3>
+          <p>Letters, numbers, and space — no need to switch keyboards.</p>
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <h3>Tap a snippet</h3>
+          <p>The top row holds your clips. Tap to paste into any app.</p>
+        </div>
+      </div>
     </section>
 
-    <section class="card" id="privacy-policy">
+    <section>
+      <p class="label">FILL-INS</p>
+      <h2>Details that update themselves</h2>
+      <p class="sub">When you save a snippet, add a fill-in. It resolves every time you paste. Custom fields ask once and reuse the value across the snippet.</p>
+      <div class="row"><div><h3>Today’s date</h3><p>Inserts today’s date.</p></div></div>
+      <div class="row"><div><h3>Current time</h3><p>Inserts the current time.</p></div></div>
+      <div class="row"><div><h3>Last copy</h3><p>Inserts what you just copied.</p></div></div>
+      <div class="row"><div><h3>Typing spot</h3><p>Leaves room to keep typing.</p></div></div>
+      <div class="row"><div><h3>Custom field</h3><p>Name, company, email — with an optional default.</p></div></div>
+    </section>
+
+    <section id="pro">
+      <p class="label">PLAN</p>
+      <h2>Free, then Pro if you need more</h2>
+      <p class="sub">Everything runs on your device. Pro is optional.</p>
+      <div class="split">
+        <div>
+          <p class="label">FREE</p>
+          <p class="price">$0</p>
+          <div class="row"><div><h3>5 clips</h3><p>Slots are used when you save a new snippet.</p></div></div>
+          <div class="row"><div><h3>5 keyboard pastes</h3><p>Enough to try Nippet in Messages, Mail, Notes.</p></div></div>
+          <div class="row"><div><h3>Fill-ins</h3><p>Date, time, last copy, typing spot, custom fields.</p></div></div>
+        </div>
+        <div>
+          <p class="label">NIPPET PRO</p>
+          <p class="price">from $2.99</p>
+          <div class="row"><div><h3>Unlimited clips</h3><p>No slot cap.</p></div></div>
+          <div class="row"><div><h3>Unlimited folders</h3><p>Keep work and personal apart.</p></div></div>
+          <div class="row"><div><h3>Unlimited pastes</h3><p>From the Nippet keyboard, anywhere.</p></div></div>
+          <div class="row"><div><h3>Advanced search</h3><p>Find a snippet without scrolling.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <p class="label">ON YOUR DEVICE</p>
+      <h2>Snippets stay with you</h2>
+      <p class="sub">Nippet has no account and no snippet server. The keyboard and the app share a private App Group on the device. Allow Full Access so save-from-clipboard and paste can work.</p>
+    </section>
+
+    <section id="privacy" class="legal">
+      <p class="label">PRIVACY</p>
       <h2>Privacy Policy</h2>
-      <p>
-        Nippet ("we", "us") is a clipboard and keyboard utility app. We are committed to protecting your privacy.
-      </p>
-      <h3>1) Data we process</h3>
+      <p>Last updated: August 24, 2026. Nippet (“we”, “us”) is a clipboard and keyboard utility by Nomli Tech Limited.</p>
+
+      <h3>1. Data we process</h3>
       <ul>
-        <li>Clipboard snippets and folders you save in the app.</li>
-        <li>Subscription status needed to unlock Pro features.</li>
+        <li>Clipboard snippets, labels, folders, and fill-in templates you save.</li>
+        <li>Subscription status from Apple, used only to unlock Pro.</li>
       </ul>
-      <h3>2) How data is stored</h3>
+
+      <h3>2. How data is stored</h3>
       <ul>
         <li>Snippets are stored locally on your device.</li>
-        <li>Keyboard/app shared state uses Apple App Groups on your device.</li>
-        <li>If you enable iCloud backup/device backup, Apple services may back up app data under your Apple account settings.</li>
+        <li>The keyboard reads that same on-device store through Apple App Groups.</li>
+        <li>If iCloud Backup or device backup is on, Apple may include app data under your Apple account settings.</li>
       </ul>
-      <h3>3) Data sharing</h3>
+
+      <h3>3. Data sharing</h3>
       <ul>
-        <li>We do not sell your personal data.</li>
-        <li>We do not run an external data broker service for your snippets.</li>
-        <li>For purchases, Apple and RevenueCat process transaction metadata needed to validate and manage subscriptions.</li>
+        <li>We do not sell your data.</li>
+        <li>We do not send snippets to our servers. There is no Nippet backend for clip content.</li>
+        <li>Purchases are processed by Apple. We receive only what StoreKit needs to know if you are Pro.</li>
       </ul>
-      <h3>4) Keyboard permission notice</h3>
+
+      <h3>4. Keyboard access</h3>
       <ul>
-        <li>The Nippet keyboard requires "Allow Full Access" for clipboard save/paste features.</li>
-        <li>Clipboard reads/writes are used only to provide keyboard functionality.</li>
+        <li>Save and paste from the keyboard need Allow Full Access in iOS Settings.</li>
+        <li>Clipboard is read only to save a snippet or resolve a fill-in such as Last copy.</li>
+        <li>You can type on Nippet without switching back to ABC. The system still uses Apple’s keyboard for passwords and phone pads.</li>
       </ul>
-      <h3>5) Your choices</h3>
+
+      <h3>5. Your choices</h3>
       <ul>
-        <li>You can delete snippets inside the app at any time.</li>
-        <li>You can disable keyboard access in iOS Settings.</li>
-        <li>You can cancel subscriptions in Apple Subscriptions settings.</li>
+        <li>Delete snippets in the app at any time, including Clear All Clips.</li>
+        <li>Remove the Nippet keyboard in Settings → General → Keyboard.</li>
+        <li>Cancel Pro in iOS Settings → Apple ID → Subscriptions.</li>
       </ul>
-      <h3>6) Children's privacy</h3>
-      <p>
-        Nippet is not directed to children under 13. If you believe a child provided personal data, contact us to request deletion.
-      </p>
-      <h3>7) Changes to this policy</h3>
-      <p>
-        We may update this policy from time to time. Material changes will be posted on this page.
-      </p>
-      <a class="toplink" href="#top">Back to top</a>
+
+      <h3>6. Children</h3>
+      <p>Nippet is not directed to children under 13. If you believe a child provided personal data, email us to request deletion.</p>
+
+      <h3>7. Changes</h3>
+      <p>We may update this policy. Material changes will be posted on this page.</p>
     </section>
 
-    <section class="card" id="terms-of-use">
+    <section id="terms" class="legal">
+      <p class="label">TERMS</p>
       <h2>Terms of Use</h2>
-      <p>
-        By using Nippet, you agree to these Terms.
-      </p>
-      <h3>1) License</h3>
-      <p>
-        We grant you a limited, non-exclusive, non-transferable, revocable license to use Nippet on Apple devices you own or control.
-      </p>
-      <h3>2) Acceptable use</h3>
+      <p>By using Nippet, you agree to these Terms.</p>
+
+      <h3>1. License</h3>
+      <p>We grant you a limited, non-exclusive, non-transferable, revocable license to use Nippet on Apple devices you own or control.</p>
+
+      <h3>2. Acceptable use</h3>
       <ul>
         <li>Do not use Nippet for unlawful activity.</li>
-        <li>Do not attempt to reverse engineer or interfere with the app's normal operation.</li>
+        <li>Do not reverse engineer or interfere with the app.</li>
       </ul>
-      <h3>3) Service availability</h3>
-      <p>
-        We may update, modify, or discontinue features at any time to improve reliability and security.
-      </p>
-      <h3>4) Disclaimer</h3>
-      <p>
-        Nippet is provided "as is" and "as available" without warranties of any kind to the maximum extent permitted by law.
-      </p>
-      <h3>5) Limitation of liability</h3>
-      <p>
-        To the fullest extent permitted by law, we are not liable for indirect, incidental, special, consequential, or punitive damages.
-      </p>
-      <h3>6) Governing terms</h3>
-      <p>
-        These terms apply in addition to Apple's standard licensed application terms where required.
-      </p>
-      <p class="small">
-        Apple Standard EULA:
-        <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" rel="noopener noreferrer">
-          https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
-        </a>
-      </p>
-      <a class="toplink" href="#top">Back to top</a>
+
+      <h3>3. Freemium</h3>
+      <p>The free plan includes 5 clip slots and 5 keyboard pastes. Deleting a clip does not refund a used slot. Pro removes those caps. A previous lifetime purchase, if you have one, still unlocks Pro.</p>
+
+      <h3>4. Availability</h3>
+      <p>We may update, modify, or discontinue features to improve reliability and security.</p>
+
+      <h3>5. Disclaimer</h3>
+      <p>Nippet is provided “as is” and “as available” without warranties of any kind to the maximum extent permitted by law.</p>
+
+      <h3>6. Limitation of liability</h3>
+      <p>To the fullest extent permitted by law, we are not liable for indirect, incidental, special, consequential, or punitive damages.</p>
+
+      <h3>7. Apple terms</h3>
+      <p>These terms apply in addition to Apple’s <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">Standard EULA</a> where required.</p>
     </section>
 
-    <section class="card" id="subscriptions">
-      <h2>Subscriptions & Billing (Nippet Pro)</h2>
+    <section id="billing" class="legal">
+      <p class="label">BILLING</p>
+      <h2>Subscriptions</h2>
       <ul>
-        <li>Monthly: <strong>$2.99/month</strong></li>
-        <li>Yearly: <strong>$14.99/year</strong></li>
-        <li>Lifetime: <strong>$19.99</strong> one-time purchase</li>
+        <li>Monthly: $2.99 per month</li>
+        <li>Yearly: $14.99 per year</li>
       </ul>
-      <p>
-        Payment is charged to your Apple ID account at confirmation of purchase.
-      </p>
-      <ul>
-        <li>Auto-renewable subscriptions renew automatically unless canceled at least 24 hours before the current period ends.</li>
-        <li>Your account is charged for renewal within 24 hours prior to the end of the current period.</li>
-        <li>You can manage or cancel subscriptions in iOS Settings &gt; Apple ID &gt; Subscriptions.</li>
-      </ul>
-      <a class="toplink" href="#top">Back to top</a>
+      <p>Payment is charged to your Apple ID at confirmation of purchase. Auto-renewable subscriptions renew unless canceled at least 24 hours before the current period ends. Your account is charged for renewal within 24 hours prior to the end of the current period. Manage or cancel in iOS Settings → Apple ID → Subscriptions.</p>
     </section>
 
-    <section class="card" id="contact">
-      <h2>Contact</h2>
-      <p>
-        For privacy or legal requests, contact:
-        <br />
-        <strong>Nomli Tech Limited</strong>
-        <br />
-        Email: <a href="mailto:hello@nomli.cc">hello@nomli.cc</a>
-      </p>
-      <a class="toplink" href="#top">Back to top</a>
+    <section id="contact" class="legal">
+      <p class="label">CONTACT</p>
+      <h2>Nomli Tech Limited</h2>
+      <p>Privacy and legal requests: <a href="mailto:hello@nomli.cc">hello@nomli.cc</a></p>
     </section>
+
+    <footer>
+      Nippet
+      <div class="meta">On-device snippets. Apple keyboard extension. Last updated August 24, 2026.</div>
+    </footer>
   </div>
 </body>
 </html>
